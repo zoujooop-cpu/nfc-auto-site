@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NFC Auto — Télécharger l'application</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0A0A0B;
+    --white: #F5F4F0;
+    --orange: #E85C26;
+    --orange-dim: #C24A1A;
+    --steel: #1C1C20;
+    --muted: #7A7A82;
+    --border: rgba(255,255,255,0.08);
+    --mono: 'Space Mono', monospace;
+    --display: 'Syne', sans-serif;
+    --body: 'DM Sans', sans-serif;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--body);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(232,92,38,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,92,38,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-glow {
+    position: absolute; top: 20%; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(232,92,38,0.15) 0%, transparent 70%);
+    z-index: 0; pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative; z-index: 1;
+    max-width: 800px;
+  }
+
+  .hero-logo {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 span {
+    color: var(--orange);
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+  }
+
+  /* QR CODE + DOWNLOAD */
+  .download-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .qr-container {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .qr-code {
+    width: 200px;
+    height: 200px;
+  }
+
+  .qr-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: var(--mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--black);
+    background: var(--orange);
+    padding: 1.2rem 2.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: all 0.3s;
+    box-shadow: 0 10px 40px rgba(232,92,38,0.3);
+  }
+
+  .download-btn:hover {
+    background: var(--orange-dim);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 50px rgba(232,92,38,0.4);
+  }
+
+  .download-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .download-note {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 1rem;
+    font-family: var(--mono);
+  }
+
+  /* FEATURES */
+  .features {
+    padding: 5rem 2rem;
+    background: var(--steel);
+  }
+
+  .features-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 3rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    background: var(--black);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+    text-align: left;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(232,92,38,0.3);
+    transform: translateY(-5px);
+  }
+
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(232,92,38,0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .feature-title {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-logo {
+    font-family: var(--mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--orange);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.5rem; }
+    .qr-code { width: 160px; height: 160px; }
+    .download-btn { padding: 1rem 2rem; font-size: 0.9rem; }
+    .features { padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-content">
+    <div class="hero-logo">🚗</div>
+    <h1>
+      NFC Auto
+      <span>Gestion d'entretien</span>
+    </h1>
+    <p class="hero-sub">
+      Scannez le tag NFC de votre véhicule et accédez instantanément à son historique d'entretien complet.
+    </p>
+
+    <!-- QR + BOUTON -->
+    <div class="download-section">
+      <!-- QR Code généré avec l'URL de téléchargement -->
+      <div class="qr-container">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://docs.google.com/uc?export=download&id=1XWXzmStbSZI-YcT2xF4RmgBkZ8Ao3efB&color=0A0A0B&bgcolor=F5F4F0" 
+             alt="QR Code téléchargement APK" 
+             class="qr-code">
+        <div class="qr-label">Scanner pour télécharger</div>
+      </div>
+
+      <a href="https://docs.google.com/uc?export=download&id=1XWXzmStbSZI-YcT2xF4RmgBkZ8Ao3efB" class="download-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        TÉLÉCHARGER L'APP
+      </a>
+    </div>
+
+    <p class="download-note">APK Android • Version 1.0 • 12 MB</p>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-inner">
+    <div class="section-tag">Fonctionnalités</div>
+    <h2 class="section-title">Ce que fait l'application</h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📡</div>
+        <div class="feature-title">Scan NFC instantané</div>
+        <div class="feature-desc">Approchez votre téléphone du badge NFC du véhicule pour l'identifier en une seconde.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <div class="feature-title">Historique complet</div>
+        <div class="feature-desc">Consultez tous les entretiens passés : vidanges, freins, filtres, avec dates et coûts.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">➕</div>
+        <div class="feature-title">Ajouter un entretien</div>
+        <div class="feature-desc">Le garagiste enregistre une nouvelle intervention avec type, coût et kilométrage.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <div class="feature-title">Alertes préventives</div>
+        <div class="feature-desc">Notifications automatiques pour les véhicules dont la prochaine révision approche.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Statistiques garage</div>
+        <div class="feature-desc">Tableau de bord avec volume d'entretiens, répartition par type et coûts totaux.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <div class="feature-title">Sécurité JWT</div>
+        <div class="feature-desc">Authentification par token, mots de passe chiffrés et gestion des rôles (admin, garagiste, propriétaire).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<<footer>
+  <div class="footer-logo">NFC_AUTO</div>
+  <div class="footer-copy">© 2026 Assane Diop • PFE Orange Digital Center</div>
+</footer>
+
+</body>
+</html>
